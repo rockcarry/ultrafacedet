@@ -1,0 +1,11 @@
+!.gitignore
+*.dll
+*.lib
+*.exe
+*.o
+*.so
+out.bmp
+/MNN/
+/libmnn/
+/src/test
+
