@@ -6,7 +6,7 @@
 #include <MNN/Interpreter.hpp>
 #include <MNN/Tensor.hpp>
 #include "bmpfile.h"
-#include "ultrafacedet.h"
+#include "facedet.h"
 
 #define SCORE_THRESHOLD 0.5
 #define IOU_THRESHOLD   0.5
@@ -56,7 +56,7 @@ static void nms(std::vector<BBOX> &dstlist, std::vector<BBOX> &srclist, const fl
     }
 }
 
-void* ultrafacedet_init(char *path, int inw, int inh)
+void* facedet_init(char *path, int inw, int inh)
 {
     static const float STRIDES[] = { 8.0, 16.0, 32.0, 64.0 };
     static const float SHRINKAGES[][4] = {
@@ -111,7 +111,7 @@ void* ultrafacedet_init(char *path, int inw, int inh)
     return facedet;
 }
 
-void ultrafacedet_free(void *ctxt)
+void facedet_free(void *ctxt)
 {
     FACEDET *facedet = (FACEDET*)ctxt;
     if (facedet) {
@@ -121,7 +121,7 @@ void ultrafacedet_free(void *ctxt)
     }
 }
 
-int ultrafacedet_detect(void *ctxt, BBOX *bboxlist, int listsize, uint8_t *bitmap)
+int facedet_detect(void *ctxt, BBOX *bboxlist, int listsize, uint8_t *bitmap)
 {
     if (!ctxt || !bitmap) return 0;
     FACEDET *facedet = (FACEDET*)ctxt;
@@ -197,12 +197,12 @@ int main(int argc, char *argv[])
         printf("failed to load bmpfile %s !\n", bfile);
         goto done;
     }
-    facedet = ultrafacedet_init(mfile, mybmp.width, mybmp.height);
+    facedet = facedet_init(mfile, mybmp.width, mybmp.height);
 
     printf("do face detection 100 times ...\n");
     tick = get_tick_count();
     for (i = 0; i < 100; i++) {
-        n = ultrafacedet_detect(facedet, bboxes, 100, (uint8_t*)mybmp.pdata);
+        n = facedet_detect(facedet, bboxes, 100, (uint8_t*)mybmp.pdata);
     }
     printf("finish !\n");
     printf("totoal used time: %d ms\n\n", (int)get_tick_count() - (int)tick);
@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
     bmp_save(&mybmp, (char*)"out.bmp");
 done:
     bmp_free(&mybmp);
-    ultrafacedet_free(facedet);
+    facedet_free(facedet);
     return 0;
 }
 #endif

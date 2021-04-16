@@ -1,0 +1,6 @@
+LIBRARY ffmtcnn
+
+EXPORTS
+    facedet_init
+    facedet_free
+    facedet_detect

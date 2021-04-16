@@ -7,19 +7,19 @@ LD_FLAGS="-L$PWD/../libmnn/lib -lMNN -lpthread -Wl,-gc-sections -Wl,-strip-all -
 
 case "$1" in
 "")
-    $CXX -Wall -D_TEST_ bmpfile.c ultrafacedet.cpp $CXX_FLAGS $LD_FLAGS -o test
+    $CXX -Wall -D_TEST_ bmpfile.c facedet.cpp $CXX_FLAGS $LD_FLAGS -o test
     case "$TARGET_PLATFORM" in
     win32)
-        $CXX --shared ultrafacedet.cpp $CXX_FLAGS $LD_FLAGS -o ultrafacedet.dll
-        dlltool -l ultrafacedet.lib -d ultrafacedet.def
+        $CXX --shared facedet.cpp $CXX_FLAGS $LD_FLAGS -o facedet.dll
+        dlltool -l facedet.lib -d facedet.def
         $STRIP *.exe *.dll
         ;;
     ubuntu)
-        $CXX --shared ultrafacedet.cpp $CXX_FLAGS $LD_FLAGS -o ultrafacedet.so
+        $CXX --shared facedet.cpp $CXX_FLAGS $LD_FLAGS -o libfacedet.so
         $STRIP test *.so
         ;;
     msc33x)
-        $CXX --shared ultrafacedet.cpp $CXX_FLAGS $LD_FLAGS -o ultrafacedet.so
+        $CXX --shared facedet.cpp $CXX_FLAGS $LD_FLAGS -o libfacedet.so
         $STRIP test *.so
         ;;
     esac
