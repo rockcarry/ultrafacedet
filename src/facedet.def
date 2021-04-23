@@ -1,4 +1,4 @@
-LIBRARY ffmtcnn
+LIBRARY facedet
 
 EXPORTS
     facedet_init
