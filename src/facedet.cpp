@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
 
     printf("face rect list:\n");
     for (i = 0; i < n; i++) {
-        printf("score: %.2f, rect: (%3d %3d %3d %3d)\n", bboxes[i].score, bboxes[i].x1, bboxes[i].y1, bboxes[i].x2, bboxes[i].y2);
+        printf("score: %.2f, rect: (%3d %3d %3d %3d)\n", bboxes[i].score, (int)bboxes[i].x1, (int)bboxes[i].y1, (int)bboxes[i].x2, (int)bboxes[i].y2);
         bmp_rectangle(&mybmp, bboxes[i].x1, bboxes[i].y1, bboxes[i].x2, bboxes[i].y2, 0, 255, 0);
     }
     printf("\n");

@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 typedef struct {
-    float score;
-    int   x1, y1, x2, y2;
+    float score, x1, y1, x2, y2;
+    int   category;
 } BBOX;
 
 void* facedet_init  (char *path, int inw, int inh);
