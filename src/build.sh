@@ -2,7 +2,7 @@
 
 set -e
 
-CXX_FLAGS="-I$PWD/../libmnn/include -std=c++11 -ffunction-sections -fdata-sections -Os -fPIC"
+CXX_FLAGS="-I$PWD/../libmnn/include -std=c++11 -ffunction-sections -fdata-sections -Ofast -fPIC"
 LD_FLAGS="-L$PWD/../libmnn/lib -lMNN -lpthread -Wl,-gc-sections -Wl,-strip-all -flto"
 
 case "$1" in
@@ -21,6 +21,9 @@ case "$1" in
     msc33x)
         $CXX --shared facedet.cpp $CXX_FLAGS $LD_FLAGS -o libfacedet.so
         $STRIP test *.so
+        $CXX -Wall -c bmpfile.c facedet.cpp $CXX_FLAGS $LD_FLAGS
+        cp $PWD/../libmnn/lib/libMNN.a libfacedet.a
+        ${CC}-ar rcs libfacedet.a bmpfile.o facedet.o
         ;;
     esac
     ;;
