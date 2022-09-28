@@ -5,8 +5,8 @@ set -e
 TOPDIR=$PWD
 
 if [ ! -d MNN ]; then
-#   git clone https://github.com/alibaba/MNN.git
-    git clone https://github.com.cnpmjs.org/alibaba/MNN.git
+    git clone https://github.com/alibaba/MNN.git
+#   git clone https://github.com.cnpmjs.org/alibaba/MNN.git
 fi
 
 cd $TOPDIR/MNN
@@ -25,7 +25,6 @@ cmake $TOPDIR/MNN \
 -DMNN_BUILD_TOOLS=OFF \
 -DMNN_BUILD_QUANTOOLS=OFF \
 -DMNN_FORBID_MULTI_THREAD=ON \
--DMNN_USE_THREAD_POOL=OFF \
 -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE
 make -j8 && make install
 
